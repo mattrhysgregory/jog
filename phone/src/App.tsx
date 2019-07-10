@@ -1,36 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { WS_URL } from "./conf";
-import { AddMsg } from "./components/";
+import { AddMsg, Introduction, ConnectionError } from "./components/";
 import "./App.css";
-import { AppWrapper } from "./App.style";
-import { FaSadCry } from "react-icons/fa";
+
+export const UsernameCtx = React.createContext("");
+export const SocketCtx = React.createContext(new WebSocket(WS_URL));
 
 const App: React.FC = () => {
   const [ws, setWs] = useState(new WebSocket(WS_URL));
   const [connected, setConnected] = useState(false);
+  const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {
     ws.onopen = () => {
-      console.log("Socket Connected");
       setConnected(true);
     };
 
-    ws.onmessage = evt => {
-      console.log("new message from socket");
-      console.log(evt.data);
-    };
-
     ws.onclose = () => {
-      console.log("Socket Disconected");
       setConnected(false);
     };
   }, [ws]);
 
-  useEffect(() => {
-    if (!connected) {
-      setWs(new WebSocket(WS_URL));
-    }
-  }, [connected]);
+  // useEffect(() => {
+  //   if (!connected) {
+  //     setWs(new WebSocket(WS_URL));
+  //   }
+  // }, [connected]);
 
   const sendMessage = (newMsg: any) => {
     console.log("new message");
@@ -38,16 +33,19 @@ const App: React.FC = () => {
     ws.send(JSON.stringify(newMsg));
   };
 
-  return (
-    <AppWrapper>
-      {connected ? (
+  const renderMain = () =>
+    connected ? (
+      <UsernameCtx.Provider value={username!}>
         <AddMsg onMessageCreate={sendMessage} />
-      ) : (
-        <p>
-          No Connection <FaSadCry />
-        </p>
-      )}
-    </AppWrapper>
+      </UsernameCtx.Provider>
+    ) : (
+      <ConnectionError />
+    );
+
+  return !!username ? (
+    renderMain()
+  ) : (
+    <Introduction onSetName={(u: string) => setUsername(u)} />
   );
 };
 
