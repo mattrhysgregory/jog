@@ -1,5 +1,48 @@
-import React from "react";
+import React, { useContext, FormEvent, useState, ChangeEvent } from "react";
+import { UsernameCtx, SocketCtx } from "../../App";
+import { RetroMessage, RetroMessageTypes } from "../../types";
+import { timeUtils } from "../../utils";
+import { FaPlus } from "react-icons/fa";
 
 export const UserRetroMain: React.FC = () => {
-  return <p>Hi</p>;
+  const username = useContext(UsernameCtx);
+  const ws = useContext(SocketCtx);
+
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (message.length > 0) {
+      const msg: RetroMessage = {
+        content: message,
+        type: RetroMessageTypes.BAD,
+        userNickname: username,
+        timestamp: timeUtils.getEpochTimestamp()
+      };
+      ws.send(JSON.stringify(msg));
+      setMessage("");
+    }
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setMessage(event.target.value);
+  };
+
+  return (
+    <>
+      <h1>Hi {username}</h1>
+      <h3>Add Message</h3>
+      <form onSubmit={handleSubmit}>
+        <input
+          onChange={handleInputChange}
+          type="text"
+          placeholder="message"
+          value={message}
+        />
+        <button type="submit">
+          <FaPlus />
+        </button>
+      </form>
+    </>
+  );
 };

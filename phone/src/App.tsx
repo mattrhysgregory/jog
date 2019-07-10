@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { WS_URL } from "./conf";
-import { AddMsg, Introduction, ConnectionError } from "./components/";
+import { Introduction, ConnectionError, UserRetroMain } from "./components/";
 import "./App.css";
 
 export const UsernameCtx = React.createContext("");
@@ -21,23 +21,19 @@ const App: React.FC = () => {
     };
   }, [ws]);
 
-  // useEffect(() => {
-  //   if (!connected) {
-  //     setWs(new WebSocket(WS_URL));
-  //   }
-  // }, [connected]);
-
-  const sendMessage = (newMsg: any) => {
-    console.log("new message");
-    console.log(newMsg);
-    ws.send(JSON.stringify(newMsg));
-  };
+  useEffect(() => {
+    if (!connected) {
+      setWs(new WebSocket(WS_URL));
+    }
+  }, [connected]);
 
   const renderMain = () =>
     connected ? (
-      <UsernameCtx.Provider value={username!}>
-        <AddMsg onMessageCreate={sendMessage} />
-      </UsernameCtx.Provider>
+      <SocketCtx.Provider value={ws}>
+        <UsernameCtx.Provider value={username!}>
+          <UserRetroMain />
+        </UsernameCtx.Provider>
+      </SocketCtx.Provider>
     ) : (
       <ConnectionError />
     );
