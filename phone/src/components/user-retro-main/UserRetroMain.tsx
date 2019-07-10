@@ -3,7 +3,7 @@ import { UsernameCtx, SocketCtx } from "../../App";
 import { RetroMessage, RetroMessageTypes } from "../../types";
 import { timeUtils } from "../../utils";
 import { FaPlus } from "react-icons/fa";
-
+import s from "./UserRetroMain.styles";
 export const UserRetroMain: React.FC = () => {
   const username = useContext(UsernameCtx);
   const ws = useContext(SocketCtx);
@@ -29,7 +29,7 @@ export const UserRetroMain: React.FC = () => {
   };
 
   return (
-    <>
+    <s.Container>
       <h1>Hi {username}</h1>
       <h3>Add Message</h3>
       <form onSubmit={handleSubmit}>
@@ -43,6 +43,6 @@ export const UserRetroMain: React.FC = () => {
           <FaPlus />
         </button>
       </form>
-    </>
+    </s.Container>
   );
 };
