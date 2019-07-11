@@ -1,5 +1,5 @@
 import * as WebSocket from "ws";
-import { RetroBoard, RetroMessageTypes, RetroMessage } from "../../types/";
+import { RetroBoard, RetroMessageTypes, RetroMessage } from "conf";
 
 const port = 8080;
 
