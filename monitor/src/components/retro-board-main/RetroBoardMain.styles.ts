@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
 const MessageItem = styled.div`
-  background-color: #eee;
+  background-color: #ffff88;
   box-shadow: 4px 4px 7px #444;
+  font-weight: 600;
   padding: 1em;
   margin: 1em;
+
+  p:nth-of-type(2) {
+    text-align: right;
+    font-size: 0.8em;
+  }
 `;
 
 const Col = styled.div`

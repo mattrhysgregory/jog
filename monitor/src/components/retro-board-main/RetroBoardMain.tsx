@@ -11,8 +11,7 @@ export const RetroBoardMain: React.FC<Props> = ({ board }: Props) => {
     messages.map(m => (
       <s.MessageItem key={m.content}>
         <p>{m.content}</p>
-        <p> {m.timestamp}</p>
-        <p>{m.userNickname}</p>
+        <p>- {m.userNickname}</p>
       </s.MessageItem>
     ));
 
