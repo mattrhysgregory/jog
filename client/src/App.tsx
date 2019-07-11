@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { WS_URL } from "./conf";
+import { ROOT_CONF } from "@jog/common";
 import { Introduction, ConnectionError, UserRetroMain } from "./components/";
 import "./App.css";
 
 export const UsernameCtx = React.createContext("");
-export const SocketCtx = React.createContext(new WebSocket(WS_URL));
+export const SocketCtx = React.createContext(new WebSocket(ROOT_CONF.WS_URL));
 
 const App: React.FC = () => {
-  const [ws, setWs] = useState(new WebSocket(WS_URL));
+  const [ws, setWs] = useState(new WebSocket(ROOT_CONF.WS_URL));
   const [connected, setConnected] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
 
@@ -23,7 +23,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (!connected) {
-      setWs(new WebSocket(WS_URL));
+      setWs(new WebSocket(ROOT_CONF.WS_URL));
     }
   }, [connected]);
 

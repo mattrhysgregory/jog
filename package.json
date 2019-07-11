@@ -17,12 +17,12 @@
     "ts-node": "^8.2.0",
     "typescript": "^3.5.1",
     "ws": "^7.0.0",
-    "conf": "1.0.0"
+    "@jog/common": "1.0.0"
   },
   "private": true,
   "workspaces": [
-    "client",
+    "common",
     "monitor",
-    "conf"
+    "client"
   ]
 }

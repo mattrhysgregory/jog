@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "@jog/client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,7 +14,8 @@
     "react-icons": "^3.7.0",
     "react-scripts": "3.0.1",
     "styled-components": "^4.2.1",
-    "typescript": "3.5.1"
+    "typescript": "3.5.1",
+    "@jog/common": "1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
