@@ -15,7 +15,6 @@ export const Introduction: React.FC<Props> = (props: Props) => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log("name is " + username);
     props.onSetName(username);
   };
 

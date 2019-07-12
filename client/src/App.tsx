@@ -3,34 +3,20 @@ import { ROOT_CONF } from "@jog/common";
 import { Introduction, ConnectionError, UserRetroMain } from "./components/";
 import "./App.css";
 import { ThemeProvider } from "styled-components";
-import { lightTheme } from "./style/theme";
-import { AppWrapper } from "./App.style";
-import { render } from "react-dom";
-
+import { lightTheme, darkTheme } from "./style/theme";
+import s from "./App.style";
+import { FaMoon, FaSun } from "react-icons/fa";
 export const UsernameCtx = React.createContext("");
-export const SocketCtx = React.createContext(new WebSocket(ROOT_CONF.WS_URL));
+const ws = new WebSocket(ROOT_CONF.WS_URL);
+export const SocketCtx = React.createContext(ws);
+
+ws.onerror = () => console.log("Error with websocket");
+ws.onclose = () => console.log("Error with close");
 
 const App: React.FC = () => {
-  const [ws, setWs] = useState(new WebSocket(ROOT_CONF.WS_URL));
-  const [connected, setConnected] = useState(false);
-  const [username, setUsername] = useState<string | null>("Matt");
-  const [theme, setTheme] = useState(lightTheme);
-
-  useEffect(() => {
-    ws.onopen = () => {
-      setConnected(true);
-    };
-
-    ws.onclose = () => {
-      setConnected(false);
-    };
-  }, [ws]);
-
-  useEffect(() => {
-    if (!connected) {
-      setWs(new WebSocket(ROOT_CONF.WS_URL));
-    }
-  }, [connected]);
+  const [connected, setConnected] = useState(true);
+  const [username, setUsername] = useState<string | null>(null);
+  const [darkMode, setDarkMode] = useState(false);
 
   const renderMain = () =>
     connected ? (
@@ -44,15 +30,17 @@ const App: React.FC = () => {
     );
 
   return (
-    <ThemeProvider theme={theme}>
-      <AppWrapper>
-        {renderMain()}
-        {/* {!!username ? (
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <s.AppWrapper>
+        <s.ThemeToggler onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? <FaSun /> : <FaMoon />}
+        </s.ThemeToggler>
+        {!!username ? (
           renderMain()
         ) : (
           <Introduction onSetName={(u: string) => setUsername(u)} />
-        )} */}
-      </AppWrapper>
+        )}
+      </s.AppWrapper>
     </ThemeProvider>
   );
 };

@@ -33,7 +33,6 @@ export const initWebsockets = () => {
   };
 
   wss.on("connection", (connection: WebSocket) => {
-    console.log("-- CONNECTION MADE --");
     wsConnections.push(connection);
     connection.send(JSON.stringify(board));
     connection.on("message", message => {

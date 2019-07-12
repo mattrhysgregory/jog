@@ -10,12 +10,13 @@ interface Props {
 export const Select: React.FC<Props> = (props: Props) => {
   const [selected, setSelected] = useState(props.selected || props.options[0]);
 
-  useEffect(() => props.onSelect(selected), [selected]);
+  useEffect(() => props.onSelect(selected), [selected, props.onSelect]);
 
   return (
     <s.SelectContainer>
       {props.options.map(o => (
         <s.SelectOption
+          key={o}
           selected={selected === o}
           onClick={() => setSelected(o)}
         >

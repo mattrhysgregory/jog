@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const AppWrapper = styled.main`
+const AppWrapper = styled.main`
   height: 100vh;
   width: 100%;
   display: flex;
@@ -14,3 +14,16 @@ export const AppWrapper = styled.main`
     font-size: 2.5em;
   }
 `;
+
+const ThemeToggler = styled.div`
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 1em;
+  color: ${props => props.theme.colourSecondary};
+  user-select: none;
+`;
+
+export default { AppWrapper, ThemeToggler };
