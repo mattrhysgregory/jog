@@ -5,6 +5,7 @@ import { timeUtils } from "../../utils";
 import { FaPlus } from "react-icons/fa";
 import s from "./UserRetroMain.styles";
 import { Select } from "../select/Select";
+import { InlineForm } from "../../style/form";
 
 export const UserRetroMain: React.FC = () => {
   const username = useContext(UsernameCtx);
@@ -40,13 +41,12 @@ export const UserRetroMain: React.FC = () => {
 
   return (
     <s.Container>
-      <h1>Hi {username}</h1>
-      <h3>Add Message</h3>
-      <form onSubmit={handleSubmit}>
-        <Select
-          options={messageTypesToStringArray()}
-          onSelect={onSelectMessageType}
-        />
+      <h3>Add</h3>
+      <Select
+        options={messageTypesToStringArray()}
+        onSelect={onSelectMessageType}
+      />
+      <InlineForm onSubmit={handleSubmit}>
         <input
           onChange={handleInputChange}
           type="text"
@@ -56,7 +56,7 @@ export const UserRetroMain: React.FC = () => {
         <button type="submit">
           <FaPlus />
         </button>
-      </form>
+      </InlineForm>
     </s.Container>
   );
 };

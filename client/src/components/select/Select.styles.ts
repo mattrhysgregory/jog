@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const SelectContainer = styled.div`
   width: 400px;
+  max-width: 100%;
   display: flex;
   margin: auto;
 `;
@@ -15,7 +16,8 @@ const SelectOption = styled.div<SelectOptionProps>`
   padding: 0.5em;
   margin: 1em;
   border-radius: 20px;
-  ${props => props.selected && "border: solid 1px white"};
+  text-transform: uppercase;
+  ${props => props.selected && "border: solid 2px"};
 `;
 
 export default {

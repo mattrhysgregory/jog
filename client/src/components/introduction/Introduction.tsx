@@ -1,4 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { InlineForm } from "../../style/form";
+import { FaPlay } from "react-icons/fa";
 
 interface Props {
   onSetName: (name: string) => void;
@@ -18,9 +20,11 @@ export const Introduction: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input value={username} onChange={handleChange} />
-      <button type="submit">Start</button>
-    </form>
+    <InlineForm onSubmit={handleSubmit}>
+      <input value={username} onChange={handleChange} placeholder="Name" />
+      <button type="submit">
+        <FaPlay />
+      </button>
+    </InlineForm>
   );
 };
